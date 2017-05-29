@@ -21,7 +21,7 @@ Players will be able to choose from one of three themes for gameplay. These incl
 ![Wireframe](/tetris_wireframe.png)
 
 ### Architecture & Technologies
-Initechtris will feature the following technologies:
+Throwback Tetris will feature the following technologies:
 * Vanilla JavaScript for overall gameplay
 * HTML5 Canvas and JQuery for visual rendering and DOM manipulation
 
