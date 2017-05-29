@@ -23,23 +23,30 @@ Players will be able to choose from one of three themes for gameplay. These incl
 ### Architecture & Technologies
 Throwback Tetris will feature the following technologies:
 * Vanilla JavaScript for overall gameplay
-* HTML5 Canvas and JQuery for visual rendering and DOM manipulation
+* HTML5 Canvas will be used for creating pieces as well as overall board rendering
+* JQuery will be used for DOM manipulation as game progresses
+* CSS will be used for styling gameboy "themes"
 
 -exact scripts TBD-
-
 
 ### Implementation Timeline
 ##### Day 1: Webpack and Board setup
 **Objective**: Create a webpack file and also establish the foundation of the game including the board and pieces. Pieces will "fall" on screen
+* Create a grid that will represent the board class that the game will be played on
+* Create classes for each individual piece
 
 ##### Day 2: Overall gameflow
 **Objective**: Player is able to control direction and orientation of pieces. Pieces know logic including clearing of rows
+* Add keypress listeners to control falling piece
 
 ##### Day 3: Final pieces of gameplay
 **Objective**: Game has a start screen, can be paused, and scoring is implemented
+* Create buttons for relative actions
 
 ##### Day 4: Accurate styling of Gameboy
 **Objective**: Provide users a retro "feel" to the original gameboy from the 90s
+* Utilize CSS to create "design" of gameboy down to the details
+
 
 ### Bonus Features:
 If time permits, I'd like to implement the following features
