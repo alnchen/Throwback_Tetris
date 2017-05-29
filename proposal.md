@@ -1,4 +1,4 @@
-Throwback Tetris
+# Throwback Tetris
 
 ### Background
 Throwback Tetris is a single player game inspired by the classic Tetris built entirely using Javascript. The game involves objects of different shapes falling towards the bottom of the board. The objective of the game is to score points by clearing filled rows but when a player fills his board up with pieces that have not been cleared, the game is over.  
