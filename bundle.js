@@ -218,6 +218,15 @@ class Piece {
     this.pos.x += dir;
   }
 
+  fall(dir) {
+    if (dir === 1) {
+      this.pos.y += 1;
+    } else if (dir === -1) {
+      this.pos.y = 16;
+      //need to figure out bottom 
+    }
+  }
+
 
   rotate() {
     //need suggestions on handling rotation
@@ -251,16 +260,23 @@ class GameView {
       e.preventDefault();
       switch(e.keyCode) {
         case 37:
-        this.piece.move(-1);
-        this.draw();
-        break;
+          this.piece.move(-1);
+          this.draw();
+          break;
         case 39:
-        this.piece.move(1);
-        this.draw();
-        break;
+          this.piece.move(1);
+          this.draw();
+          break;
+        case 38:
+          this.piece.fall(-1);
+          this.draw();
+          break;
+        case 40:
+          this.piece.fall(1);
+          this.draw();
+          break;
       }
     });
-
   }
 
   draw() {
