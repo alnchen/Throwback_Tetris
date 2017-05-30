@@ -92,7 +92,9 @@ class Game {
     // }
   }
 
-
+  test() {
+    
+  }
 
 }
 
