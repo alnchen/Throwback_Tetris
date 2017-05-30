@@ -33,7 +33,8 @@ Throwback Tetris will feature the following technologies:
 ##### Day 1: Webpack and Board setup
 **Objective**: Create a webpack file and also establish the foundation of the game including the board and pieces. Pieces will "fall" on screen
 * Create a grid that will represent the board class that the game will be played on
-* Create classes for each individual piece
+* Create one piece class that will manage positional change
+* Create a board class that will hold all pieces' positions and update board with "filled" positions
 
 ##### Day 2: Overall gameflow
 **Objective**: Player is able to control direction and orientation of pieces. Pieces know logic including clearing of rows
