@@ -87,6 +87,9 @@ class Game {
   drop() {
     this.piece.pos.y += 1;
     // console.log(this.piece.pos.y);
+    // if (this.piece.pos.y === 2) {
+    //   this.piece = new Piece();
+    // }
   }
 
 
@@ -223,19 +226,46 @@ class Piece {
       this.pos.y += 1;
     } else if (dir === -1) {
       this.pos.y = 16;
-      //need to figure out bottom 
+      //need to figure out bottom
     }
   }
-
 
   rotate() {
     //need suggestions on handling rotation
     //transpose?
+    // console.log(this.shape);
+    let rotated = [];
+    for (let i = 0; i < this.shape[0].length; i++) {
+      rotated.push([]);
+    }
+
+    for (let x = 0; x < this.shape.length; x++) {
+      for (let y = 0; y < this.shape[x].length; y++) {
+        rotated[y].unshift(this.shape[x][y]);
+      }
+    }
+
+    this.shape = rotated;
   }
 
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Piece);
+
+// Array.prototype.myTranspose = function () {
+//   let output = [];
+//
+//   for (let i = 0; i < this[0].length; i++){
+//     output.push([]);
+//   }
+//
+//   for (let i = 0; i < this.length; i++){
+//     for (let j = 0; j < this[i].length; j++){
+//       output[i].push(this[j][i]);
+//     }
+//   }
+//   return output;
+// };
 
 
 /***/ }),
@@ -273,6 +303,10 @@ class GameView {
           break;
         case 40:
           this.piece.fall(1);
+          this.draw();
+          break;
+        case 32:
+          this.piece.rotate();
           this.draw();
           break;
       }
