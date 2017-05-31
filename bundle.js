@@ -97,7 +97,6 @@ class Game {
     //   this.piece = new Piece();
     // }
     if (this.willTouch()) {
-      console.log('hit bounds');
       this.combine();
       this.createNewPiece();
     }
@@ -123,6 +122,9 @@ class Game {
 
   move(dir) {
     this.piece.pos.x += dir;
+    if (this.willTouch()){
+      this.piece.pos.x -= dir;
+    }
   }
 
   fall(dir) {
@@ -134,7 +136,6 @@ class Game {
     }
 
     if (this.willTouch()) {
-      console.log('hit bounds');
       this.combine();
       this.createNewPiece();
     }
@@ -159,7 +160,6 @@ class Game {
     this.piece.shape = rotated;
 
     if (this.willTouch()) {
-      console.log('hit bounds');
       this.combine();
       this.createNewPiece();
     }
@@ -266,9 +266,10 @@ class GameView {
   }
 
   update() {
-    this.draw();
+    // this.draw();
 
     if (!this.game.gameOver) {
+      this.draw();
       this.game.drop();
     } else {
       clearInterval(this.interval);
