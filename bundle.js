@@ -123,15 +123,15 @@ class Game {
   }
 
   clearFilledRows() {
-    let cleared = 1;
+    let extraCleared = 0;
     this.board.matrix.forEach((row, idx) => {
       if (row.filter((el) => el === 0).length === 0) {
-        cleared += 2;
+        extraCleared += 1;
         this.board.matrix.splice(idx, 1);
         this.board.matrix.unshift(new Array(10).fill(0));
       }
     });
-    this.score += (cleared * 1000);
+    this.score += (Math.pow(2, extraCleared) * 1000);
     console.log(this.score);
   }
 
