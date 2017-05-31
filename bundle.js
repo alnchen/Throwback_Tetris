@@ -86,6 +86,8 @@ class Game {
     this.willTouch = this.willTouch.bind(this);
     // this.createNewPiece = this.createNewPiece.bind(this)
     this.combine = this.combine.bind(this);
+    this.createNewPiece = this.createNewPiece.bind(this);
+    this.gameOver = false;
   }
 
   drop() {
@@ -97,13 +99,17 @@ class Game {
     if (this.willTouch()) {
       console.log('hit bounds');
       this.combine();
-      this.piece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
+      this.createNewPiece();
     }
   }
 
-  // createNewPiece() {
-  //   this.piece = new Piece();
-  // }
+  createNewPiece() {
+    if (this.piece.pos.y <= 1) {
+      this.gameOver = true;
+    } else {
+    this.piece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
+    }
+  }
 
   combine() {
     this.piece.shape.forEach((row, y) => {
@@ -117,7 +123,6 @@ class Game {
 
   move(dir) {
     this.piece.pos.x += dir;
-    // if this.
   }
 
   fall(dir) {
@@ -131,7 +136,7 @@ class Game {
     if (this.willTouch()) {
       console.log('hit bounds');
       this.combine();
-      this.piece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
+      this.createNewPiece();
     }
 
   }
@@ -152,6 +157,12 @@ class Game {
     }
 
     this.piece.shape = rotated;
+
+    if (this.willTouch()) {
+      console.log('hit bounds');
+      this.combine();
+      this.createNewPiece();
+    }
   }
 
   willTouch() {
@@ -188,6 +199,7 @@ class GameView {
     this.timeFrame = 1000;
     this.update = this.update.bind(this);
     this.draw = this.draw.bind(this);
+    this.interval = setInterval(this.update, 1000);
 
     window.addEventListener('keydown', e => {
       e.preventDefault();
@@ -219,23 +231,34 @@ class GameView {
   draw() {
     this.ctx.clearRect(0, 0, 10, 19);
 
+    const colors = {
+      'Z': 'rgb(204, 98, 102)',
+      'J': 'rgb(102, 204, 204)',
+      'L': 'rgb(216, 167, 16)',
+      'S': 'rgb(100, 202, 102)',
+      '|': 'rgb(102, 103, 197)',
+      'O': 'rgb(199, 106, 196)',
+      'T': 'rgb(254, 248, 76)'
+    };
+
     this.board.matrix.forEach((row, idx) => {
-      row.forEach((spot, idx2) => {
-        if (spot === 0) {
+      row.forEach((element, idx2) => {
+        if (element === 0) {
           this.ctx.fillStyle = 'rgb(44, 44, 42)';
+          this.ctx.fillRect(idx2, idx, 1, 1);
+        } else {
+          this.ctx.fillStyle = colors[element];
           this.ctx.fillRect(idx2, idx, 1, 1);
         }
       });
       //will need to update with pieces' colors later (replace idx2 with spot)
     });
 
-    // this.ctx.fillRect(0, 0, 10, 19);
-
     this.game.piece.shape.forEach((row, idx) => {
       row.forEach((element, idx2) => {
         // console.log(element);
         if (element !== 0) {
-          this.ctx.fillStyle = 'rgb(255, 51, 0)';
+          this.ctx.fillStyle = colors[element];
           this.ctx.fillRect(idx2 + this.game.piece.pos.x, idx + this.game.piece.pos.y, 1, 1);
         }
       });
@@ -244,13 +267,19 @@ class GameView {
 
   update() {
     this.draw();
-    this.game.drop();
+
+    if (!this.game.gameOver) {
+      this.game.drop();
+    } else {
+      clearInterval(this.interval);
+      console.log('game over');
+    }
   }
 
-  gameStart() {
-    // setInterval for requestAnimationFrame every 1000ms or so
-    setInterval(this.update, 1000);
-  }
+  // gameStart() {
+  //   // setInterval for requestAnimationFrame every 1000ms or so
+  //   const interval = setInterval(this.update, 1000);
+  // }
 
 
 }
@@ -304,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
   const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
   const gameview = new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](ctx, game);
-  gameview.gameStart();
+  // gameview.gameStart();
 });
 
 
@@ -331,57 +360,58 @@ class Piece {
   pieceShape(type)
   {
     switch(type) {
-    case 'I':
+    case '|':
       return [
-        [0, 1, 0, 0],
-        [0, 1, 0, 0],
-        [0, 1, 0, 0],
-        [0, 1, 0, 0],
+        [0, '|', 0, 0],
+        [0, '|', 0, 0],
+        [0, '|', 0, 0],
+        [0, '|', 0, 0],
       ];
     case 'L':
       return [
-        [0, 2, 0],
-        [0, 2, 0],
-        [0, 2, 2],
+        [0, 'L', 0],
+        [0, 'L', 0],
+        [0, 'L', 'L'],
       ];
     case 'J':
       return [
-        [0, 3, 0],
-        [0, 3, 0],
-        [3, 3, 0],
+        [0, 'J', 0],
+        [0, 'J', 0],
+        ['J', 'J', 0],
       ];
     case 'O':
       return [
-        [4, 4],
-        [4, 4],
+        ['O', 'O'],
+        ['O', 'O'],
       ];
     case 'Z':
       return [
-        [5, 5, 0],
-        [0, 5, 5],
+        ['Z', 'Z', 0],
+        [0, 'Z', 'Z'],
         [0, 0, 0],
       ];
     case 'S':
       return [
-        [0, 6, 6],
-        [6, 6, 0],
+        [0, 'S', 'S'],
+        ['S', 'S', 0],
         [0, 0, 0],
       ];
     case 'T':
       return [
-        [0, 7, 0],
-        [7, 7, 7],
+        [0, 'T', 0],
+        ['T', 'T', 'T'],
         [0, 0, 0],
       ];
     }
   }
 
   createPiece() {
-    const shapes = 'ILJOZST';
+    const shapes = '|LJOZST';
     this.shape = this.pieceShape(shapes[Math.floor(Math.random() * 7)]);
     this.pos.x = Math.floor(5 - this.shape[0].length/2);
     // console.log(this.game);
   }
+
 
 }
 
