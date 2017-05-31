@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,8 +71,8 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__board__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__piece__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__board__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__piece__ = __webpack_require__(4);
 
 
 
@@ -82,6 +82,10 @@ class Game {
     this.score = 0;
     this.piece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
     // console.log(this.piece.createPiece());
+    // this.createPiece();
+    this.willTouch = this.willTouch.bind(this);
+    // this.createNewPiece = this.createNewPiece.bind(this)
+    this.combine = this.combine.bind(this);
   }
 
   drop() {
@@ -90,12 +94,78 @@ class Game {
     // if (this.piece.pos.y === 2) {
     //   this.piece = new Piece();
     // }
+    if (this.willTouch()) {
+      console.log('hit bounds');
+      this.combine();
+      this.piece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
+    }
   }
 
-  test() {
-    
+  // createNewPiece() {
+  //   this.piece = new Piece();
+  // }
+
+  combine() {
+    this.piece.shape.forEach((row, y) => {
+      row.forEach((element, x) => {
+        if (element !== 0) {
+          this.board.matrix[y + this.piece.pos.y - 1][x + this.piece.pos.x] = element;
+        }
+      });
+    });
   }
 
+  move(dir) {
+    this.piece.pos.x += dir;
+    // if this.
+  }
+
+  fall(dir) {
+    if (dir === 1) {
+      this.piece.pos.y += 1;
+    } else if (dir === -1) {
+      this.piece.pos.y = 16;
+      //need to figure out bottom
+    }
+
+    if (this.willTouch()) {
+      console.log('hit bounds');
+      this.combine();
+      this.piece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
+    }
+
+  }
+
+  rotate() {
+    //need suggestions on handling rotation
+    //transpose?
+    // console.log(this.shape);
+    let rotated = [];
+    for (let i = 0; i < this.piece.shape[0].length; i++) {
+      rotated.push([]);
+    }
+
+    for (let x = 0; x < this.piece.shape.length; x++) {
+      for (let y = 0; y < this.piece.shape[x].length; y++) {
+        rotated[y].unshift(this.piece.shape[x][y]);
+      }
+    }
+
+    this.piece.shape = rotated;
+  }
+
+  willTouch() {
+    const shape = this.piece.shape;
+    const space = this.piece.pos;
+    for (let y = 0; y < shape.length; y++) {
+      for (let x = 0; x < shape[y].length; x++) {
+        if (shape[y][x] !== 0 && (this.board.matrix[y + space.y] && this.board.matrix[y + space.y][x + space.x]) !== 0) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Game);
@@ -103,6 +173,93 @@ class Game {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
+
+
+class GameView {
+  constructor(ctx, game) {
+    this.game = game;
+    this.ctx = ctx;
+    this.board = game.board;
+    // this.piece = game.piece;
+    this.timeFrame = 1000;
+    this.update = this.update.bind(this);
+    this.draw = this.draw.bind(this);
+
+    window.addEventListener('keydown', e => {
+      e.preventDefault();
+      switch(e.keyCode) {
+        case 37:
+          this.game.move(-1);
+          this.draw();
+          break;
+        case 39:
+          this.game.move(1);
+          this.draw();
+          break;
+        case 38:
+          this.game.fall(-1);
+          this.draw();
+          break;
+        case 40:
+          this.game.fall(1);
+          this.draw();
+          break;
+        case 32:
+          this.game.rotate();
+          this.draw();
+          break;
+      }
+    });
+  }
+
+  draw() {
+    this.ctx.clearRect(0, 0, 10, 19);
+
+    this.board.matrix.forEach((row, idx) => {
+      row.forEach((spot, idx2) => {
+        if (spot === 0) {
+          this.ctx.fillStyle = 'rgb(44, 44, 42)';
+          this.ctx.fillRect(idx2, idx, 1, 1);
+        }
+      });
+      //will need to update with pieces' colors later (replace idx2 with spot)
+    });
+
+    // this.ctx.fillRect(0, 0, 10, 19);
+
+    this.game.piece.shape.forEach((row, idx) => {
+      row.forEach((element, idx2) => {
+        // console.log(element);
+        if (element !== 0) {
+          this.ctx.fillStyle = 'rgb(255, 51, 0)';
+          this.ctx.fillRect(idx2 + this.game.piece.pos.x, idx + this.game.piece.pos.y, 1, 1);
+        }
+      });
+    });
+  }
+
+  update() {
+    this.draw();
+    this.game.drop();
+  }
+
+  gameStart() {
+    // setInterval for requestAnimationFrame every 1000ms or so
+    setInterval(this.update, 1000);
+  }
+
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (GameView);
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -120,19 +277,21 @@ class Board {
     }
     return board;
   }
+
+
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Board);
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game_view__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game_view__ = __webpack_require__(1);
 
 
 
@@ -150,14 +309,17 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
+
+
 class Piece {
   constructor() {
     this.pos = {
-      x: 4,
+      x: 0,
       y: 0
     };
     this.shape = null;
@@ -217,37 +379,8 @@ class Piece {
   createPiece() {
     const shapes = 'ILJOZST';
     this.shape = this.pieceShape(shapes[Math.floor(Math.random() * 7)]);
-  }
-
-  move(dir) {
-    this.pos.x += dir;
-  }
-
-  fall(dir) {
-    if (dir === 1) {
-      this.pos.y += 1;
-    } else if (dir === -1) {
-      this.pos.y = 16;
-      //need to figure out bottom
-    }
-  }
-
-  rotate() {
-    //need suggestions on handling rotation
-    //transpose?
-    // console.log(this.shape);
-    let rotated = [];
-    for (let i = 0; i < this.shape[0].length; i++) {
-      rotated.push([]);
-    }
-
-    for (let x = 0; x < this.shape.length; x++) {
-      for (let y = 0; y < this.shape[x].length; y++) {
-        rotated[y].unshift(this.shape[x][y]);
-      }
-    }
-
-    this.shape = rotated;
+    this.pos.x = Math.floor(5 - this.shape[0].length/2);
+    // console.log(this.game);
   }
 
 }
@@ -268,93 +401,6 @@ class Piece {
 //   }
 //   return output;
 // };
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
-
-
-class GameView {
-  constructor(ctx, game) {
-    this.game = game;
-    this.ctx = ctx;
-    this.board = game.board;
-    this.piece = game.piece;
-    this.timeFrame = 1000;
-    this.update = this.update.bind(this);
-    this.draw = this.draw.bind(this);
-
-    window.addEventListener('keydown', e => {
-      e.preventDefault();
-      switch(e.keyCode) {
-        case 37:
-          this.piece.move(-1);
-          this.draw();
-          break;
-        case 39:
-          this.piece.move(1);
-          this.draw();
-          break;
-        case 38:
-          this.piece.fall(-1);
-          this.draw();
-          break;
-        case 40:
-          this.piece.fall(1);
-          this.draw();
-          break;
-        case 32:
-          this.piece.rotate();
-          this.draw();
-          break;
-      }
-    });
-  }
-
-  draw() {
-    this.ctx.clearRect(0, 0, 10, 19);
-
-    this.board.matrix.forEach((row, idx) => {
-      row.forEach((spot, idx2) => {
-        if (spot === 0) {
-          this.ctx.fillStyle = 'rgb(44, 44, 42)';
-          this.ctx.fillRect(idx2, idx, 1, 1);
-        }
-      });
-      //will need to update with pieces' colors later (replace idx2 with spot)
-    });
-
-    // this.ctx.fillRect(0, 0, 10, 19);
-
-    this.piece.shape.forEach((row, idx) => {
-      row.forEach((element, idx2) => {
-        // console.log(element);
-        if (element !== 0) {
-          this.ctx.fillStyle = 'rgb(255, 51, 0)';
-          this.ctx.fillRect(idx2 + this.piece.pos.x, idx + this.piece.pos.y, 1, 1);
-        }
-      });
-    });
-  }
-
-  update() {
-    this.draw();
-    this.game.drop();
-  }
-
-  gameStart() {
-    // setInterval for requestAnimationFrame every 1000ms or so
-    setInterval(this.update, 1000);
-  }
-
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (GameView);
 
 
 /***/ })
