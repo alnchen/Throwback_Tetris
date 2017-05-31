@@ -88,6 +88,7 @@ class Game {
     this.combine = this.combine.bind(this);
     this.createNewPiece = this.createNewPiece.bind(this);
     this.gameOver = false;
+    this.clearFilledRows = this.clearFilledRows.bind(this);
   }
 
   drop() {
@@ -98,6 +99,7 @@ class Game {
     // }
     if (this.willTouch()) {
       this.combine();
+      this.clearFilledRows();
       this.createNewPiece();
     }
   }
@@ -120,6 +122,19 @@ class Game {
     });
   }
 
+  clearFilledRows() {
+    let cleared = 1;
+    this.board.matrix.forEach((row, idx) => {
+      if (row.filter((el) => el === 0).length === 0) {
+        cleared += 2;
+        this.board.matrix.splice(idx, 1);
+        this.board.matrix.unshift(new Array(10).fill(0));
+      }
+    });
+    this.score += (cleared * 1000);
+    console.log(this.score);
+  }
+
   move(dir) {
     this.piece.pos.x += dir;
     if (this.willTouch()){
@@ -131,12 +146,17 @@ class Game {
     if (dir === 1) {
       this.piece.pos.y += 1;
     } else if (dir === -1) {
-      this.piece.pos.y = 16;
-      //need to figure out bottom
+
+      while (!this.willTouch()) {
+        this.piece.pos.y += 1;
+      }
+
+      // this.piece.pos.y = 16;
     }
 
     if (this.willTouch()) {
       this.combine();
+      this.clearFilledRows();
       this.createNewPiece();
     }
 
@@ -161,6 +181,7 @@ class Game {
 
     if (this.willTouch()) {
       this.combine();
+      this.clearFilledRows();
       this.createNewPiece();
     }
   }
