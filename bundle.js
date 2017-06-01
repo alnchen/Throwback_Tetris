@@ -275,10 +275,12 @@ class GameView {
             this.interval = setInterval(this.update, 1000);
             this.paused = false;
             document.getElementById('pause-screen').style.opacity = 0;
+            document.getElementById('theme-song').play();
           } else {
             clearInterval(this.interval);
             this.paused = true;
             document.getElementById('pause-screen').style.opacity = 1;
+            document.getElementById('theme-song').pause();
           }
       }
     });
@@ -324,11 +326,12 @@ class GameView {
         this.interval = setInterval(this.update, 1000);
         this.paused = false;
         document.getElementById('pause-screen').style.opacity = 0;
+        document.getElementById('theme-song').play();
       } else {
         clearInterval(this.interval);
         this.paused = true;
         document.getElementById('pause-screen').style.opacity = 1;
-        $("#control-buttons").children().prop('disabled',true);
+        document.getElementById('theme-song').pause();
       }
     });
   }
