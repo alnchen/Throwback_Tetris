@@ -45,6 +45,7 @@
   left: 186px;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
+  opacity: 0;
 }
 
 #down {
@@ -52,10 +53,11 @@
   height: 40px;
   position: absolute;
   background-color: red;
-  top: 554px;
+  top: 553px;
   left: 186px;
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
+  opacity: 0;
 }
 
 #left {
@@ -64,19 +66,24 @@
   position: absolute;
   background-color: blue;
   top: 518px;
-  left: 150px;
+  left: 152px;
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
   transform: rotate(90deg);
+  opacity: 0;
 }
 
 #right {
+  width: 31px;
+  height: 40px;
   position: absolute;
   background-color: blue;
-  width: 45px;
-  height: 31px;
-  top: 523px;
-  left: 218px;
+  top: 518px;
+  left: 220px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  transform: rotate(270deg);
+  opacity: 0;
 }
 
 #rotate {
@@ -86,6 +93,8 @@
   height: 53px;
   top: 500px;
   left: 429px;
+  border-radius: 50%;
+  opacity: 0;
 }
 
 #rotate2 {
@@ -95,6 +104,8 @@
   height: 53px;
   top: 526px;
   left: 356px;
+  border-radius: 50%;
+  opacity: 0;
 }
 
 #up:active, #down:active, #left:active, #right:active, #rotate:active, #rotate2:active {
