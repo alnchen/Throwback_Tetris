@@ -78,19 +78,19 @@
 
 class Game {
   constructor() {
-    this.board = new __WEBPACK_IMPORTED_MODULE_0__board__["a" /* default */](10, 19);
+    this.board = new __WEBPACK_IMPORTED_MODULE_0__board__["a" /* default */](10, 18);
     this.score = 0;
     this.piece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
-    // console.log(this.piece.createPiece());
-    // this.createPiece();
+    this.nextPiece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
+    console.log(this.nextPiece);
+    this.clearedLines = 0;
     this.willTouch = this.willTouch.bind(this);
-    // this.createNewPiece = this.createNewPiece.bind(this)
     this.combine = this.combine.bind(this);
     this.createNewPiece = this.createNewPiece.bind(this);
     this.gameOver = false;
     this.clearFilledRows = this.clearFilledRows.bind(this);
     this.scoreboard = document.getElementById('scoreboard');
-    this.scoreboard.innerHTML = this.score;
+    this.scoreboard.innerHTML = `<div>score:&#10 0</div>`;
   }
 
   drop() {
@@ -110,6 +110,7 @@ class Game {
     if (this.piece.pos.y <= 1) {
       this.gameOver = true;
     } else {
+    console.log(this.nextPiece);
     this.piece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
     }
   }
@@ -118,6 +119,7 @@ class Game {
     this.piece.shape.forEach((row, y) => {
       row.forEach((element, x) => {
         if (element !== 0) {
+          this.clearedLines += 1;
           this.board.matrix[y + this.piece.pos.y - 1][x + this.piece.pos.x] = element;
         }
       });
@@ -125,17 +127,31 @@ class Game {
   }
 
   clearFilledRows() {
-    let extraCleared = 0;
+    let cleared = 0;
     this.board.matrix.forEach((row, idx) => {
       if (row.filter((el) => el === 0).length === 0) {
-        extraCleared += 1;
+        cleared += 1;
         this.board.matrix.splice(idx, 1);
         this.board.matrix.unshift(new Array(10).fill(0));
       }
     });
-    this.score += (1000 + Math.pow(2, extraCleared) * 1000);
-    this.scoreboard.innerHTML = this.score;
-    console.log(this.score);
+
+    switch(cleared){
+      case 1:
+        this.score += 40;
+        break;
+      case 2:
+        this.score += 100;
+        break;
+      case 3:
+        this.score += 300;
+        break;
+      case 4:
+        this.score += 1200;
+        break;
+    }
+
+    this.scoreboard.innerHTML = `<div>score:&#10 ${this.score}</div>`;
   }
 
   move(dir) {
@@ -215,7 +231,7 @@ class Game {
 
 
 class GameView {
-  constructor(ctx, game) {
+  constructor(game, ctx, ctx2) {
     this.game = game;
     this.ctx = ctx;
     this.board = game.board;
@@ -351,13 +367,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 document.addEventListener("DOMContentLoaded", function(){
   const board = document.getElementById('tetris-board');
-  board.width = 200;
-  board.height = 380;
+  board.width = 100;
+  board.height = 180;
   const ctx = board.getContext('2d');
-  ctx.scale(20, 20);
+  ctx.scale(10, 10);
+
+  const nextPiece = document.getElementById('next-piece');
+  nextPiece.width = 50;
+  nextPiece.height = 50;
+  const ctx2 = nextPiece.getContext('2d');
+  ctx2.scale(10,10);
 
   const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
-  const gameview = new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](ctx, game);
+  const gameview = new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](game, ctx, ctx2);
   // gameview.gameStart();
 });
 

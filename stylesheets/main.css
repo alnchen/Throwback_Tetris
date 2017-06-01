@@ -1,6 +1,35 @@
 #scoreboard {
-  width: 100px;
+  width: 60px;
   height: 50px;
-  background-color: red;
+  background-color: rgb(44, 44, 42);
   color: white;
+  position: absolute;
+  font-family: 'Audiowide', cursive;
+  font-size: 14px;
+  left: 335px;
+  top: 160px;
+  white-space: pre-wrap;
+  padding-left: 5px;
+  padding-top: 5px;
+  border: dotted 1px grey;
+}
+
+#gameboy {
+  width: 634;
+  height: auto;
+  position: relative;
+  top: 0;
+  z-index: -1;
+}
+
+#tetris-board {
+  position: absolute;
+  top: 145px;
+  left: 211px;
+  border-left: dotted 1px grey;
+  border-right: dotted 1px grey;
+}
+
+#next-piece {
+  position: absolute;
 }
