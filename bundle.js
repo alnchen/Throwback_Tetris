@@ -108,6 +108,8 @@ class Game {
   createNewPiece() {
     if (this.piece.pos.y <= 1) {
       this.gameOver = true;
+      document.getElementById('theme-song').pause();
+      document.getElementById('game-over').play();
     } else {
     this.piece = this.nextPiece;
     this.nextPiece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
@@ -239,7 +241,7 @@ class GameView {
     this.timeFrame = 1000;
     this.update = this.update.bind(this);
     this.draw = this.draw.bind(this);
-    this.interval = setInterval(this.update, 1000);
+    this.interval = () => setInterval(this.update, 1000);
     this.paused = false;
     window.addEventListener('keydown', e => {
       e.preventDefault();
