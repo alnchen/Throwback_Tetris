@@ -341,6 +341,8 @@ class GameView {
       this.game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
       this.draw();
       this.interval = setInterval(this.update, 1000);
+      document.getElementById('theme-song').currentTime = 0;
+      document.getElementById('theme-song').play();
     });
   }
 
