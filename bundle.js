@@ -240,7 +240,7 @@ class GameView {
     this.update = this.update.bind(this);
     this.draw = this.draw.bind(this);
     this.interval = setInterval(this.update, 1000);
-
+    this.paused = false;
     window.addEventListener('keydown', e => {
       e.preventDefault();
       switch(e.keyCode) {
@@ -264,6 +264,16 @@ class GameView {
           this.game.rotate();
           this.draw();
           break;
+        case 13:
+          if (this.paused) {
+            this.interval = setInterval(this.update, 1000);
+            this.paused = false;
+            document.getElementById('pause-screen').style.opacity = 0;
+          } else {
+            clearInterval(this.interval);
+            this.paused = true;
+            document.getElementById('pause-screen').style.opacity = 1;
+          }
       }
     });
 
@@ -302,6 +312,18 @@ class GameView {
       this.draw();
       }
     );
+
+    document.getElementById('start').addEventListener('click', () => {
+      if (this.paused) {
+        this.interval = setInterval(this.update, 1000);
+        this.paused = false;
+        document.getElementById('pause-screen').style.opacity = 0;
+      } else {
+        clearInterval(this.interval);
+        this.paused = true;
+        document.getElementById('pause-screen').style.opacity = 1;
+      }
+    });
   }
 
   draw() {
@@ -354,6 +376,8 @@ class GameView {
     // this.draw();
 
     if (!this.game.gameOver) {
+      // let speed = this.game.score > 1000 ? (1000/(this.game.score/10000)) : 1000;
+      // this.setInterval =
       this.draw();
       this.game.drop();
     } else {
@@ -423,8 +447,28 @@ document.addEventListener("DOMContentLoaded", function(){
   const ctx2 = nextPiece.getContext('2d');
   ctx2.scale(10,10);
 
-  const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
-  const gameview = new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](game, ctx, ctx2);
+  let gameOn = false;
+
+  document.getElementById('start').addEventListener('click', () => {
+    if (!gameOn) {
+      const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
+      const gameview = new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](game, ctx, ctx2);
+      gameOn = true;
+    }
+  });
+
+  window.addEventListener('keydown', e => {
+    e.preventDefault();
+
+    if (!gameOn) {
+      const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
+      const gameview = new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](game, ctx, ctx2);
+      gameOn = true;
+    }
+  });
+
+  // const game = new Game();
+  // const gameview = new GameView(game, ctx, ctx2);
   // gameview.gameStart();
 });
 
