@@ -243,27 +243,33 @@ class GameView {
     this.paused = false;
     window.addEventListener('keydown', e => {
       e.preventDefault();
+
+      if (!this.paused) {
+        switch(e.keyCode) {
+          case 37:
+            this.game.move(-1);
+            this.draw();
+            break;
+          case 39:
+            this.game.move(1);
+            this.draw();
+            break;
+          case 38:
+            this.game.fall(-1);
+            this.draw();
+            break;
+          case 40:
+            this.game.fall(1);
+            this.draw();
+            break;
+          case 32:
+            this.game.rotate();
+            this.draw();
+            break;
+        }
+      }
+
       switch(e.keyCode) {
-        case 37:
-          this.game.move(-1);
-          this.draw();
-          break;
-        case 39:
-          this.game.move(1);
-          this.draw();
-          break;
-        case 38:
-          this.game.fall(-1);
-          this.draw();
-          break;
-        case 40:
-          this.game.fall(1);
-          this.draw();
-          break;
-        case 32:
-          this.game.rotate();
-          this.draw();
-          break;
         case 13:
           if (this.paused) {
             this.interval = setInterval(this.update, 1000);
@@ -322,6 +328,7 @@ class GameView {
         clearInterval(this.interval);
         this.paused = true;
         document.getElementById('pause-screen').style.opacity = 1;
+        $("#control-buttons").children().prop('disabled',true);
       }
     });
   }
