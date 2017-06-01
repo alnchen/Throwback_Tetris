@@ -234,7 +234,7 @@ class GameView {
     this.game = game;
     this.ctx = ctx;
     this.ctx2 = ctx2;
-    this.board = game.board;
+    // this.board = this.game.board;
     // this.piece = game.piece;
     this.timeFrame = 1000;
     this.update = this.update.bind(this);
@@ -334,6 +334,14 @@ class GameView {
         document.getElementById('theme-song').pause();
       }
     });
+
+    document.getElementById('select').addEventListener('click', () => {
+      this.paused = false;
+      document.getElementById('pause-screen').style.opacity = 0;
+      this.game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
+      this.draw();
+      this.interval = setInterval(this.update, 1000);
+    });
   }
 
   draw() {
@@ -349,7 +357,7 @@ class GameView {
       'T': 'rgb(254, 248, 76)'
     };
 
-    this.board.matrix.forEach((row, idx) => {
+    this.game.board.matrix.forEach((row, idx) => {
       row.forEach((element, idx2) => {
         if (element === 0) {
           this.ctx.fillStyle = 'rgb(44, 44, 42)';
