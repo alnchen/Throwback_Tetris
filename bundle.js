@@ -461,6 +461,7 @@ document.addEventListener("DOMContentLoaded", function(){
       const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
       const gameview = new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](game, ctx, ctx2);
       gameOn = true;
+      setTimeout(() => document.getElementById('theme-song').play(), 1000);
     }
   });
 
@@ -471,6 +472,7 @@ document.addEventListener("DOMContentLoaded", function(){
       const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
       const gameview = new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](game, ctx, ctx2);
       gameOn = true;
+      setTimeout(() => document.getElementById('theme-song').play(), 1000);
     }
   });
 
