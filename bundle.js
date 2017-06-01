@@ -89,6 +89,8 @@ class Game {
     this.createNewPiece = this.createNewPiece.bind(this);
     this.gameOver = false;
     this.clearFilledRows = this.clearFilledRows.bind(this);
+    this.scoreboard = document.getElementById('scoreboard');
+    this.scoreboard.innerHTML = this.score;
   }
 
   drop() {
@@ -131,7 +133,8 @@ class Game {
         this.board.matrix.unshift(new Array(10).fill(0));
       }
     });
-    this.score += (Math.pow(2, extraCleared) * 1000);
+    this.score += (1000 + Math.pow(2, extraCleared) * 1000);
+    this.scoreboard.innerHTML = this.score;
     console.log(this.score);
   }
 
