@@ -82,7 +82,6 @@ class Game {
     this.score = 0;
     this.piece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
     this.nextPiece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
-    console.log(this.nextPiece);
     this.clearedLines = 0;
     this.willTouch = this.willTouch.bind(this);
     this.combine = this.combine.bind(this);
@@ -110,8 +109,8 @@ class Game {
     if (this.piece.pos.y <= 1) {
       this.gameOver = true;
     } else {
-    console.log(this.nextPiece);
-    this.piece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
+    this.piece = this.nextPiece;
+    this.nextPiece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
     }
   }
 
@@ -234,6 +233,7 @@ class GameView {
   constructor(game, ctx, ctx2) {
     this.game = game;
     this.ctx = ctx;
+    this.ctx2 = ctx2;
     this.board = game.board;
     // this.piece = game.piece;
     this.timeFrame = 1000;
@@ -266,11 +266,47 @@ class GameView {
           break;
       }
     });
+
+    document.getElementById('up').addEventListener('click', () => {
+      this.game.fall(-1);
+      this.draw();
+      }
+    );
+
+    document.getElementById('down').addEventListener('click', () => {
+      this.game.fall(1);
+      this.draw();
+      }
+    );
+
+    document.getElementById('left').addEventListener('click', () => {
+      this.game.move(-1);
+      this.draw();
+      }
+    );
+
+    document.getElementById('right').addEventListener('click', () => {
+      this.game.move(1);
+      this.draw();
+      }
+    );
+
+    document.getElementById('rotate').addEventListener('click', () => {
+      this.game.rotate();
+      this.draw();
+      }
+    );
+
+    document.getElementById('rotate2').addEventListener('click', () => {
+      this.game.rotate();
+      this.draw();
+      }
+    );
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, 10, 19);
-
+    this.ctx.clearRect(0, 0, 10, 18);
+    this.ctx2.clearRect(0, 0, 5, 5);
     const colors = {
       'Z': 'rgb(204, 98, 102)',
       'J': 'rgb(102, 204, 204)',
@@ -292,6 +328,15 @@ class GameView {
         }
       });
       //will need to update with pieces' colors later (replace idx2 with spot)
+    });
+
+    this.game.nextPiece.shape.forEach((row, idx) => {
+      row.forEach((element, idx2) => {
+        if (element !== 0) {
+          this.ctx2.fillStyle = colors[element];
+          this.ctx2.fillRect(idx2, idx, 1, 1);
+        }
+      });
     });
 
     this.game.piece.shape.forEach((row, idx) => {

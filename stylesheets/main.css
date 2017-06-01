@@ -25,11 +25,79 @@
 #tetris-board {
   position: absolute;
   top: 145px;
-  left: 211px;
-  border-left: dotted 1px grey;
-  border-right: dotted 1px grey;
+  left: 210px;
+  border-left: dotted 2px #474747;
+  border-right: dotted 2px #474747;
 }
 
 #next-piece {
   position: absolute;
+  top: 265px;
+  left: 355px;
+}
+
+#up {
+  width: 31px;
+  height: 40px;
+  position: absolute;
+  background-color: red;
+  top: 484px;
+  left: 186px;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+#down {
+  width: 31px;
+  height: 40px;
+  position: absolute;
+  background-color: red;
+  top: 554px;
+  left: 186px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+#left {
+  width: 31px;
+  height: 40px;
+  position: absolute;
+  background-color: blue;
+  top: 518px;
+  left: 150px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  transform: rotate(90deg);
+}
+
+#right {
+  position: absolute;
+  background-color: blue;
+  width: 45px;
+  height: 31px;
+  top: 523px;
+  left: 218px;
+}
+
+#rotate {
+  position: absolute;
+  background-color: purple;
+  width: 53px;
+  height: 53px;
+  top: 500px;
+  left: 429px;
+}
+
+#rotate2 {
+  position: absolute;
+  background-color: purple;
+  width: 53px;
+  height: 53px;
+  top: 526px;
+  left: 356px;
+}
+
+#up:active, #down:active, #left:active, #right:active, #rotate:active, #rotate2:active {
+  background-color:#000;
+  opacity:0.5;
 }
