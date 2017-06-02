@@ -22,8 +22,8 @@ Players will be able to choose from one of three themes for gameplay. These incl
 
 ### Architecture & Technologies
 Throwback Tetris will feature the following technologies:
-* Vanilla JavaScript for overall gameplay
-* HTML5 Canvas will be used for creating pieces as well as overall board rendering
+* Vanilla JavaScript for overall gameplay including functionality of piece, board, and game. Piece class will include functions for moving and rotating piece. Board class will keep a collection of all current pieces in game. Game class will handle overall game status including scoring.
+* HTML5 Canvas will be used for creating pieces as well as overall board rendering. Pieces will have individual colors and will be mapped accordingly
 * JQuery will be used for DOM manipulation as game progresses
 * CSS will be used for styling gameboy "themes"
 
