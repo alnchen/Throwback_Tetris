@@ -271,6 +271,17 @@ class GameView {
             this.game.rotate();
             this.draw();
             break;
+          case 78:
+            this.paused = false;
+            document.getElementById('over-screen').style.opacity = 0;
+            document.getElementById('pause-screen').style.opacity = 0;
+            this.game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
+            this.draw();
+            clearInterval(this.interval);
+            this.interval = setInterval(this.update, 1000);
+            document.getElementById('theme-song').currentTime = 0;
+            document.getElementById('theme-song').play();
+            break;
         }
       }
 
@@ -478,6 +489,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
   document.getElementById('start').addEventListener('click', () => {
     if (!gameOn) {
+      document.getElementById('push-any-key').style.opacity = 0;
       const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
       const gameview = new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](game, ctx, ctx2);
       gameOn = true;
@@ -489,6 +501,7 @@ document.addEventListener("DOMContentLoaded", function(){
     e.preventDefault();
 
     if (!gameOn) {
+      document.getElementById('push-any-key').style.opacity = 0;
       const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
       const gameview = new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](game, ctx, ctx2);
       gameOn = true;
