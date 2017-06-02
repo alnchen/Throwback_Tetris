@@ -24,45 +24,61 @@ Current features of the game include:
 - [X] Game scoring reflects bonus points when extra rows are cleared
 - [X] Instructions and landing page are straight-forward and visually aesthetic
 
-### Mouse-Based Controls
+### Tetromino Controls
 
-The player controls all movement of the paddle via mouse controls. Upon triggering a mouse event, the clientX property (read-only), will return the horizontal coordinate of the pointer.
-
-After subtracting any offset pixels, if the resulting value is positive and within the horizontal plane, the paddle's position will be adjusted.
+The player is able to control the currently designated piece within the game by using either on-screen buttons or with the keyboard arrow keys. This is accomplished through click and keydown event listeners, respectively. A piece is moved around the board by modifying it's stored x and y position. A setTimeout function is also initiated from the start of the game and calls for the update method at an interval based on the player's current game status. The update method invokes the drop method of the game class which increments the y axis of the game's current piece by one, essentially creating a 'dropping piece' effect. If the player has lost, the setTimeout callback will be removed to conclude the game.
 
 ```javascript
-handleMouseMove (e) {
-  let distance = e.clientX - this.canvas.offsetLeft;
-
-  if (0 < distance && this.canvas.width > distance) {
-    this.paddle.x = distance - (0.5 * this.paddle.width);
+update() {
+  if (!this.game.gameOver) {
+    this.game.drop();
+    this.draw();
+  } else {
+    clearInterval(this.interval);
   }
 }
 ```
 
-### Collision Detection
+### Board and Piece Canvas Rendering
 
-During gameplay, the ball collides with several other objects of the game:
+![screenshot](http://res.cloudinary.com/ac31624/image/upload/v1496424230/Screen_Shot_2017-06-02_at_10.23.15_AM_o1jogb.png)
 
-- Paddle
-- Brick
-- Wall
-
-With wall collisions, the angle of incidence (i.e., the collision) will equal the angle of reflection (i.e., the bounce).
-
-For instance, we can look at the vertical component of the ball's trajectory. If the size of the ball is greater than its total change in vertical position, the ball reflects off the wall with an equal but opposite change in position.
+The board, current piece, and next piece are visualized on-screen using HTML5 Canvas. Each time the GameView#draw method is called, the current game board is iterated across and checked to determine if there is currently a piece occupying that spot. If this is the case, that particular spot is colorized using the unique color representation assigned to each unique piece.
 
 ```javascript
-handleWallCollision () {
-  let totalX = this.x + this.dx;
-  let totalY = this.y + this.dy;
+const colors = {
+  'Z': 'rgb(204, 98, 102)',
+  'J': 'rgb(102, 204, 204)',
+  'L': 'rgb(216, 167, 16)',
+  'S': 'rgb(100, 202, 102)',
+  '|': 'rgb(102, 103, 197)',
+  'O': 'rgb(199, 106, 196)',
+  'T': 'rgb(254, 248, 76)'
+};
 
-  if (totalX < this.radius || totalX > this.canvas.width - this.radius) {
-    this.dx *= -1;
-  } else if (totalY < this.radius) {
-    this.dy *= -1;
-  }
-}
+this.game.board.matrix.forEach((row, idx) => {
+  row.forEach((element, idx2) => {
+
+    if (element === 0) {
+      this.ctx.fillStyle = 'rgb(36, 36, 36)';
+    } else {
+      this.ctx.fillStyle = colors[element];
+    }
+
+    this.ctx.fillRect(idx2, idx, 1, 1);
+  });
+});
+
+this.game.nextPiece.shape.forEach((row, idx) => {
+  row.forEach((element, idx2) => {
+
+    if (element !== 0) {
+      this.ctx2.fillStyle = colors[element];
+      this.ctx2.fillRect(idx2, idx, 1, 1);
+    }
+
+  });
+});
 ```
 
 ### Handling Broken Bricks

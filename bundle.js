@@ -187,9 +187,6 @@ class Game {
   }
 
   rotate() {
-    //need suggestions on handling rotation
-    //transpose?
-    // console.log(this.shape);
     let rotated = [];
     for (let i = 0; i < this.piece.shape[0].length; i++) {
       rotated.push([]);
@@ -382,13 +379,11 @@ class GameView {
       row.forEach((element, idx2) => {
         if (element === 0) {
           this.ctx.fillStyle = 'rgb(36, 36, 36)';
-          this.ctx.fillRect(idx2, idx, 1, 1);
         } else {
           this.ctx.fillStyle = colors[element];
-          this.ctx.fillRect(idx2, idx, 1, 1);
         }
+        this.ctx.fillRect(idx2, idx, 1, 1);
       });
-      //will need to update with pieces' colors later (replace idx2 with spot)
     });
 
     this.game.nextPiece.shape.forEach((row, idx) => {
@@ -412,16 +407,11 @@ class GameView {
   }
 
   update() {
-    // this.draw();
-
     if (!this.game.gameOver) {
-      // let speed = this.game.score > 1000 ? (1000/(this.game.score/10000)) : 1000;
-      // this.setInterval =
       this.draw();
       this.game.drop();
     } else {
       clearInterval(this.interval);
-      console.log('game over');
     }
   }
 
