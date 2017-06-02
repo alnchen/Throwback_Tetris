@@ -1,8 +1,8 @@
 # Throwback Tetris
 
-![screenshot](http://res.cloudinary.com/ac31624/image/upload/v1496421275/Screen_Shot_2017-06-02_at_9.33.16_AM_tm5nja.png)
-
 [Live link](https://alnchen.github.io/tetris/)
+
+![screenshot](http://res.cloudinary.com/ac31624/image/upload/v1496421275/Screen_Shot_2017-06-02_at_9.33.16_AM_tm5nja.png)
 
 Throwback Tetris is a puzzle game based on the classic Tetris game found on the Nintendo Gameboy. Players gradually fill up their board with randomly generated pieces and a row is cleared when it is entirely occupied by pieces. Bonus points are given for clearing multiple rows at the same time. The game is over when a player is unable to fill up any more pieces on the board.
 
@@ -13,16 +13,16 @@ The game utilizes the following:
 - JavaScript for gameplay and overall functionality
 
 
-# Gameplay and Features
+### Gameplay and Features
 
 One of seven different tetrominoes is randomly placed on the screen and will gradually drop towards the bottom of the board. The objective of the game is to manipulate pieces to fit best within a row. Players are then able to rack up points as rows are filled and cleared out.
 
 Current features of the game include:
 
-- [X] Keyboard control of falling piece including rotational shift
-- [X] Gameboy button controls for mobile gameplay
-- [X] Game scoring reflects bonus points when extra rows are cleared
-- [X] Instructions and landing page are straight-forward and visually aesthetic
+- Keyboard control of falling piece including rotational shift
+- Gameboy button controls for mobile gameplay
+- Game scoring reflects bonus points when extra rows are cleared
+- Instructions and landing page are straight-forward and visually aesthetic
 
 ### Tetromino Controls
 
@@ -114,6 +114,6 @@ clearFilledRows() {
 ```
 
 ### Future Release
-* [ ] Game progressively becomes difficult based on lines cleared and by increasing speed 
+* [ ] Game difficulty increases based on lines cleared
 * [ ] Gameplay sound effects for piece rotation and drop
 * [ ] Players will be able to select Gameboy themes to play on
