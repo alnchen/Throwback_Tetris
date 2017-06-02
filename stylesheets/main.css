@@ -1,7 +1,3 @@
-/**/add in piece sound effects
-/**/light on/off
-
-
 #app-body {
   background-color: black;
 }
@@ -27,6 +23,7 @@
   position: relative;
   top: 0;
   z-index: -1;
+  display: inline-block;
 }
 
 #tetris-board {
@@ -186,4 +183,15 @@
   opacity: 0;
   font-family: 'Audiowide', cursive;
   font-size: 26px;
+}
+
+#theme-song {
+  display: none;
+}
+
+#instructions {
+  display: inline-block;
+  background-color: red;
+  color: white;
+  vertical-align: top;
 }
