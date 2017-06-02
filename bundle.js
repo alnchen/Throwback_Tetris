@@ -241,7 +241,7 @@ class GameView {
     this.timeFrame = 1000;
     this.update = this.update.bind(this);
     this.draw = this.draw.bind(this);
-    this.interval = () => setInterval(this.update, 1000);
+    this.interval = setInterval(this.update, 1000);
     this.paused = false;
     window.addEventListener('keydown', e => {
       e.preventDefault();
@@ -342,6 +342,7 @@ class GameView {
       document.getElementById('pause-screen').style.opacity = 0;
       this.game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
       this.draw();
+      clearInterval(this.interval);
       this.interval = setInterval(this.update, 1000);
       document.getElementById('theme-song').currentTime = 0;
       document.getElementById('theme-song').play();
