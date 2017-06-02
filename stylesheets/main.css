@@ -201,13 +201,16 @@
   color: white;
   vertical-align: top;
   text-align: center;
-  margin-top: 46px;
+  margin-top: 140px;
 }
 
 #instructions {
   display: inline-block;
   vertical-align: top;
   width: 360px;
+  position: absolute;
+  top: 20px;
+  left: 620px;
 }
 
 #spacebar-pic {
