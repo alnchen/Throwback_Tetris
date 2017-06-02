@@ -108,6 +108,8 @@ class Game {
   createNewPiece() {
     if (this.piece.pos.y <= 1) {
       this.gameOver = true;
+      document.getElementById('over-screen').innerHTML = `<div>Game Over! Score: ${this.score}</div>`;
+      document.getElementById('over-screen').style.opacity = 1;
       document.getElementById('theme-song').pause();
       document.getElementById('game-over').play();
     } else {
@@ -126,6 +128,7 @@ class Game {
       });
     });
   }
+
 
   clearFilledRows() {
     let cleared = 0;
@@ -339,6 +342,7 @@ class GameView {
 
     document.getElementById('select').addEventListener('click', () => {
       this.paused = false;
+      document.getElementById('over-screen').style.opacity = 0;
       document.getElementById('pause-screen').style.opacity = 0;
       this.game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
       this.draw();
@@ -365,7 +369,7 @@ class GameView {
     this.game.board.matrix.forEach((row, idx) => {
       row.forEach((element, idx2) => {
         if (element === 0) {
-          this.ctx.fillStyle = 'rgb(44, 44, 42)';
+          this.ctx.fillStyle = 'rgb(36, 36, 36)';
           this.ctx.fillRect(idx2, idx, 1, 1);
         } else {
           this.ctx.fillStyle = colors[element];
