@@ -111,6 +111,7 @@ class Game {
       document.getElementById('over-screen').innerHTML = `<div>Game Over! Score: ${this.score}</div>`;
       document.getElementById('over-screen').style.opacity = 1;
       document.getElementById('theme-song').pause();
+      document.getElementById("game-over").volume = 0.6;
       document.getElementById('game-over').play();
     } else {
     this.piece = this.nextPiece;
