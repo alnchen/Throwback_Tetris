@@ -197,7 +197,7 @@
   width: 100%;
   display: inline-block;
   font-family: 'Bungee Outline', cursive;
-  font-size: 54px;
+  font-size: 58px;
   color: white;
   vertical-align: top;
   text-align: center;
@@ -228,4 +228,23 @@
   color: white;
   text-align: center;
   line-height: 168px;
+}
+
+#contact-links {
+  display: auto;
+  width: 360px;
+  height: auto;
+  position: absolute;
+  right: 40px;
+  bottom: 0px;
+  width: 40px;
+}
+
+#contact-links img {
+  /*display: inline-block;*/
+  margin: 10px;
+}
+
+#contact-links img:hover {
+  opacity: 0.6;
 }
