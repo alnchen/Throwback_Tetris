@@ -201,7 +201,7 @@
   color: white;
   vertical-align: top;
   text-align: center;
-  margin-top: 140px;
+  margin-top: 110px;
 }
 
 #instructions {
@@ -209,7 +209,7 @@
   vertical-align: top;
   width: 360px;
   position: absolute;
-  top: 20px;
+  top: 0px;
   left: 620px;
 }
 
@@ -245,7 +245,7 @@
 
 #contact-links img {
   /*display: inline-block;*/
-  margin: 10px;
+  margin-top: 10px;
 }
 
 #contact-links img:hover {
