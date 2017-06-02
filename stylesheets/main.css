@@ -189,9 +189,28 @@
   display: none;
 }
 
-#instructions {
+#game-over {
+  display: none;
+}
+
+#game-title {
+  width: 360px;;
   display: inline-block;
-  background-color: red;
+  font-family: 'Bungee Outline', cursive;
+  font-size: 60px;
   color: white;
   vertical-align: top;
+  text-align: center;
+  margin-top: 36px;
+}
+
+#instructions {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#spacebar-pic {
+  /*display: inline-block;*/
+  width: 360px;
+  filter: invert(100%);
 }
