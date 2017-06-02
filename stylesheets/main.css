@@ -204,10 +204,18 @@
   margin-top: 110px;
 }
 
+#fill-in-rows {
+  font-family: 'Muli', sans-serif;
+  width: 100%;
+  font-size: 26px;
+  color: white;
+  text-align: center;
+}
+
 #instructions {
   display: inline-block;
   vertical-align: top;
-  width: 360px;
+  width: 400px;
   position: absolute;
   top: 0px;
   left: 620px;
@@ -217,6 +225,7 @@
   /*display: inline-block;*/
   width: 360px;
   filter: invert(100%);
+  margin: 0 auto;
 }
 
 #push-any-key {
