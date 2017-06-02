@@ -206,43 +206,8 @@ class Game {
       this.clearFilledRows();
       this.createNewPiece();
     }
-
-    // const pos = this.piece.pos.x;
-    // let offset = 1;
-    // this.piece.shape = this.pieceTranspose(this.piece);
-    //
-    // while (this.willTouch()) {
-    //   this.piece.pos.x += offset;
-    //   offset = -(offset + (offset > 0 ? 1 : -1));
-    //   if (offset > this.piece.shape[0].length) {
-    //     this.rotate(this.piece.shape, -1);
-    //     this.piece.pos.x = pos;
-    //     return;
-    //   }
-    // }
   }
 
-  pieceTranspose(piece, dir) {
-    // let rotated = [];
-    // for (let i = 0; i < piece.shape[0].length; i++) {
-    //   rotated.push([]);
-    // }
-    //
-    // for (let x = 0; x < piece.shape.length; x++) {
-    //   for (let y = 0; y < piece.shape[x].length; y++) {
-    //     rotated[y].unshift(piece.shape[x][y]);
-    //   }
-    // }
-    //
-    // if (dir > 0) {
-    //   rotated.forEach((row) => row.reverse());
-    // } else {
-    //   rotated.reverse();
-    // }
-    //
-    //
-    // return rotated;
-  }
 
   outofLeftBounds() {
     // if (this.piece.pos = 0) {
