@@ -84,7 +84,6 @@ class Game {
     this.nextPiece = new __WEBPACK_IMPORTED_MODULE_1__piece__["a" /* default */]();
     this.clearedLines = 0;
     this.willTouch = this.willTouch.bind(this);
-    this.pieceTranspose = this.pieceTranspose.bind(this);
     this.combine = this.combine.bind(this);
     this.createNewPiece = this.createNewPiece.bind(this);
     this.gameOver = false;
