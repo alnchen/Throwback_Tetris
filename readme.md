@@ -2,27 +2,27 @@
 
 ![screenshot](http://res.cloudinary.com/ac31624/image/upload/v1496421275/Screen_Shot_2017-06-02_at_9.33.16_AM_tm5nja.png)
 
-[Live link](https://hbkwong.github.io/Breaking-Bricks/)
+[Live link](https://alnchen.github.io/tetris/)
 
-Breaking Bricks is a pong-style game inspired by the arcade classic, Breakout. The game begins with several layers of bricks placed in the top portion of the screen. A ball travels across the screen, bouncing off these bricks as well as the top and side walls of the playing field.
-
-As a brick is hit, the ball bounces away and the brick is destroyed. If the ball reaches the bottom of the screen, the player loses a turn. To prevent this, the player controls a moving paddle to bounce the ball, keeping it in play.
+Throwback Tetris is a puzzle game based on the classic Tetris game found on the Nintendo Gameboy. Players gradually fill up their board with randomly generated pieces and a row is cleared when it is entirely occupied by pieces. Bonus points are given for clearing multiple rows at the same time. The game is over when a player is unable to fill up any more pieces on the board.
 
 The game utilizes the following:
 
-- JavaScript
-- HTML5 Canvas
+- CSS3 for visual styling
+- HTML5 Canvas for board and piece rendering
+- JavaScript for gameplay and overall functionality
+
 
 # Gameplay and Features
 
-32 Blue Sky bricks line the playing field, each worth 1 point. When the player reaches 25 points, the player wins the game.
+One of seven different tetrominoes is randomly placed on the screen and will gradually drop towards the bottom of the board. The objective of the game is to manipulate pieces to fit best within a row. Players are then able to rack up points as rows are filled and cleared out.
 
 Current features of the game include:
 
-- [X] A laterally-moving paddle keeps the game ball in play
-- [X] Statistics (lives, score, etc.) are tracked and updated live on-screen
-- [X] The game ball collides and bounces off other game objects
-- [X] On-page instructions are viewable to guide the player
+- [X] Keyboard control of falling piece including rotational shift
+- [X] Gameboy button controls for mobile gameplay
+- [X] Game scoring reflects bonus points when extra rows are cleared
+- [X] Instructions and landing page are straight-forward and visually aesthetic
 
 ### Mouse-Based Controls
 
@@ -103,3 +103,5 @@ breakBrick (brick) {
 ### Future Release
 * [ ] Pause and Resume
 * [ ] Keyboard Controls
+sound
+gba themes
