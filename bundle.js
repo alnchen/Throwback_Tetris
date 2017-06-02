@@ -254,11 +254,6 @@ class Game {
 
   }
 
-
-
-
-
-
   willTouch() {
     const shape = this.piece.shape;
     const space = this.piece.pos;
