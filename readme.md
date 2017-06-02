@@ -114,6 +114,7 @@ clearFilledRows() {
 ```
 
 ### Future Release
+* [ ] Bug fixes for piece motion
 * [ ] Game difficulty increases based on lines cleared
 * [ ] Gameplay sound effects for piece rotation and drop
 * [ ] Players will be able to select Gameboy themes to play on
