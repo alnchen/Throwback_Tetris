@@ -81,43 +81,39 @@ this.game.nextPiece.shape.forEach((row, idx) => {
 });
 ```
 
-### Handling Broken Bricks
+### Scoring
 
-The game class manages much of the outcome when the ball collides with a brick. In checking for collisions, the game iterates through the bricks and checks for any currently unbroken. With the helper method #breakBrick, if a brick collision has indeed occurred:
-
-1. The state of the brick is updated
-2. The score increases by one
-3. The ball continues its movement, albeit with an opposite vertical component
-
-Once the score reaches a certain amount, the game is over.
+Players are rewarded with bonus points for clearing extra lines simultaneously. This is accomplished through the Game#clearFilledRows function that keeps a count of the number of cleared rows as the board is iterated across. After the complete board is analyzed, the filled rows are removed from the board and a player's current game score is incremented accordingly using the illustrated switch call. The scoring system provides more incentive for players to build up a board and clear multiple lines at once but may also put them at a greater risk of ending the game.
 
 ```javascript
-detectCollisions () {
-  for (let idx = 0; idx < this.bricks.length; idx++) {
-    for (let idx2 = 0; idx2 < this.bricks[idx].length; idx2++) {
-      let brick = this.bricks[idx][idx2];
-      if (brick.state === "unbroken") {
-        this.breakBrick(brick);
-      }
+clearFilledRows() {
+  let cleared = 0;
+  this.board.matrix.forEach((row, idx) => {
+    if (row.filter((el) => el === 0).length === 0) {
+      cleared += 1;
+      this.board.matrix.splice(idx, 1);
+      this.board.matrix.unshift(new Array(10).fill(0));
     }
-  }
-}
+  });
 
-breakBrick (brick) {
-  if (this.ball.checkBrickCollision(brick)) {
-    brick.state = "broken";
-    this.bricksHit += 1;
-    this.ball.dy *= -1;
-    if (this.bricksHit === 40) {
-      this.result = "YOU WIN!";
-      this.gameEnded = true;
-    }
+  switch(cleared){
+    case 1:
+      this.score += 40;
+      break;
+    case 2:
+      this.score += 100;
+      break;
+    case 3:
+      this.score += 300;
+      break;
+    case 4:
+      this.score += 1200;
+      break;
   }
 }
 ```
 
 ### Future Release
-* [ ] Pause and Resume
-* [ ] Keyboard Controls
-sound
-gba themes
+* [ ] Game progressively becomes difficult based on lines cleared and by increasing speed 
+* [ ] Gameplay sound effects for piece rotation and drop
+* [ ] Players will be able to select Gameboy themes to play on
