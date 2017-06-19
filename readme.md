@@ -1,6 +1,6 @@
 # Throwback Tetris
 
-[Live link](https://alnchen.github.io/tetris/)
+[Live link](https://alnchen.github.io/Throwback_Tetris/)
 
 ![screenshot](http://res.cloudinary.com/ac31624/image/upload/v1496421275/Screen_Shot_2017-06-02_at_9.33.16_AM_tm5nja.png)
 
